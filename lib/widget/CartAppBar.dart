@@ -20,10 +20,10 @@ class CartAppBar extends StatelessWidget {
               color: Color(0xFF4C53A5),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(left: 20),
             child: Text(
-              'Cart',
+              'Giỏ hàng',
               style: TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
@@ -31,12 +31,6 @@ class CartAppBar extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(),
-          Icon(
-            Icons.more_vert,
-            size: 30,
-            color: Color(0xFF4C53A5),
-          )
         ],
       ),
     );

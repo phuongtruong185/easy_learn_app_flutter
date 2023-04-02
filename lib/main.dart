@@ -6,6 +6,7 @@ import 'package:easy_learn_app/views/auth/verifySignupPage.dart';
 import 'package:easy_learn_app/views/homePage/homePage.dart';
 import 'package:easy_learn_app/views/cartPage/cartPage.dart';
 import 'package:easy_learn_app/views/itemPage/itemPage.dart';
+import 'package:easy_learn_app/views/profilePage/profilePage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -43,10 +44,10 @@ class MyApp extends StatelessWidget {
         future: isLoggedIn(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data == false) {
-              return HomePage();
+            if (snapshot.data == true) {
+              return const HomePage();
             } else {
-              return LoginPage();
+              return const LoginPage();
             }
           } else {
             return const Center(
@@ -81,7 +82,13 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => CartPage());
             break;
           case '/itemPage':
-            return MaterialPageRoute(builder: (context) => ItemPage(course: null,));
+            return MaterialPageRoute(
+                builder: (context) => ItemPage(
+                      course: null,
+                    ));
+            break;
+          case '/profile':
+            return MaterialPageRoute(builder: (context) => ProfilePage());
             break;
           default:
             return MaterialPageRoute(builder: (context) => HomePage());

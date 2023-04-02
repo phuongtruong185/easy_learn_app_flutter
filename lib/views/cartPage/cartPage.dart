@@ -25,7 +25,7 @@ class CartPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  CartItemSamples(),
+                  const CartItemSamples(),
                   Container(
                     margin: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 15),
@@ -34,18 +34,18 @@ class CartPage extends StatelessWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: Color(0xFF4C53A5),
+                            color: const Color(0xFF4C53A5),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
                             color: Colors.white,
                           ),
                         ),
-                        Padding(
+                        const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
-                              "Add coupon code",
+                              "Thêm Mã Giảm Giá",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,

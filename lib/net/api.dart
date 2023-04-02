@@ -3,11 +3,13 @@ import 'dart:convert';
 
 class API {
   static var dio = Dio();
-  static var baseUrl = 'https://backendeasylearnfinal-production.up.railway.app';
+  static var baseUrl =
+      'https://backendeasylearnfinal-production.up.railway.app';
 
-  static Future get(String url) async {
+  static Future get(String url, {Map<String, dynamic>? headers}) async {
     try {
-      var response = await dio.get(baseUrl + url);
+      var response =
+          await dio.get(baseUrl + url, options: Options(headers: headers));
       return json.decode(response.toString());
     } catch (e) {
       print('Error during GET request: $e');
@@ -15,15 +17,16 @@ class API {
     }
   }
 
-  static Future post(String url, {Map<String, dynamic>? body, Map<String, dynamic>? headers}) async {
+  static Future post(String url,
+      {Map<String, dynamic>? body, Map<String, dynamic>? headers}) async {
     try {
-      var response = await dio.post(baseUrl + url, data: body, options: Options(headers: headers));
+      var response = await dio.post(baseUrl + url,
+          data: body, options: Options(headers: headers));
       return json.decode(response.toString());
     } catch (e) {
       print('Error during POST request: $e');
       rethrow;
     }
-
   }
 
   static Future put(String url, {required Map<String, dynamic> body}) async {
@@ -36,9 +39,11 @@ class API {
     }
   }
 
-  static Future delete(String url) async {
+  static Future delete(String url,
+      {Map<String, dynamic>? body, Map<String, dynamic>? headers}) async {
     try {
-      var response = await dio.delete(baseUrl + url);
+      var response = await dio.delete(baseUrl + url,
+          data: body, options: Options(headers: headers));
       return json.decode(response.toString());
     } catch (e) {
       print('Error during DELETE request: $e');
@@ -52,20 +57,6 @@ class API {
       return json.decode(response.toString());
     } catch (e) {
       print('Error during PATCH request: $e');
-      rethrow;
-    }
-  }
-
-  static Future fake({Map<String, dynamic>? headers}) async {
-    headers = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    };
-    try {
-      var response = await dio.get('https://5f210aa9daa42f001666535e.mockapi.io/api/categories', options: Options(headers: headers));
-      return json.decode(response.toString());
-    } catch (e) {
-      print('Error during UPLOAD request: $e');
       rethrow;
     }
   }

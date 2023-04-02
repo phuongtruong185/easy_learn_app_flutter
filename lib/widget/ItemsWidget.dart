@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:easy_learn_app/net/api.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 import '../views/itemPage/itemPage.dart';
+import '../controllers/addToCartController.dart';
 
 class ItemsWidget extends StatelessWidget {
   const ItemsWidget({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class ItemsWidget extends StatelessWidget {
     return FutureBuilder(
         future: API.get('/course'),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          NumberFormat formatter = NumberFormat('#,##0', 'en_US');
           if (snapshot.hasData) {
             List<dynamic> courses = snapshot?.data['data'] as List<dynamic>;
             return GridView.count(
@@ -38,7 +40,7 @@ class ItemsWidget extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
-                                color:  Colors.red,
+                                color: Colors.red,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: (course['discount'] > 0)
@@ -54,13 +56,14 @@ class ItemsWidget extends StatelessWidget {
                           ],
                         ),
                         InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ItemPage(course: course)),
-                              );
-                            },
-
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ItemPage(course: course)),
+                            );
+                          },
                           child: Container(
                             margin: const EdgeInsets.all(10),
                             height: 120,
@@ -91,14 +94,39 @@ class ItemsWidget extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('\$${course['price'].toString()}',
-                                  style: const TextStyle(
-                                      color: Color(0xFF4C53A5),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
-                              const Icon(
-                                Icons.shopping_cart_checkout,
-                                color: Color(0xFF4C53A5),
+                              Row(
+                                children: [
+                                  Text(
+                                      '${course['price_discount'] > 0 ? formatter.format(course['price_discount']) : formatter.format(course['price'])} VND',
+                                      style: TextStyle(
+                                          color: course['price_discount'] > 0
+                                              ? Colors.red
+                                              : const Color(0xFF4C53A5),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold)),
+                                  const SizedBox(width: 10),
+                                  if (course['price_discount'] > 0)
+                                    Text(
+                                      formatter.format(course['price']),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                        decoration:
+                                            TextDecoration.lineThrough,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.put(AddToCartController()
+                                      .addToCart(course, context));
+                                },
+                                child: const Icon(
+                                  Icons.shopping_cart_checkout,
+                                  color: Color(0xFF4C53A5),
+                                ),
                               )
                             ],
                           ),

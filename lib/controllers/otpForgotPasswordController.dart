@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_learn_app/models/otpForgotPassword_model.dart';
 import 'package:easy_learn_app/net/api.dart';
 import 'package:get/get.dart';
@@ -19,8 +20,19 @@ class OTPForgotPasswordController extends GetxController {
         });
     isLoading(false);
     if (response['message'] == 'Send OTP thành công') {
-
       prefs.setString('emailForgotPass', email);
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Success!',
+          message: 'Gửi mã OTP thành công. Vui lòng kiểm tra email để lấy mã OTP',
+          contentType: ContentType.success,
+          inMaterialBanner: true,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Navigator.pushNamed(context, '/verify-forgot-password');
     } else {
       print('Error during send otp forgot password');

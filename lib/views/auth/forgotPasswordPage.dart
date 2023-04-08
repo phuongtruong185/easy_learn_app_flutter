@@ -1,4 +1,4 @@
-
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_learn_app/widget/bezierContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,13 +14,24 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  final OTPForgotPasswordController otpForgotPasswordController = Get.put(OTPForgotPasswordController());
+  final OTPForgotPasswordController otpForgotPasswordController =
+      Get.put(OTPForgotPasswordController());
   final TextEditingController _emailController = TextEditingController();
 
   void _signUp(context) {
     String email = _emailController.text.trim();
-    if (email.isEmpty ) {
-      Get.snackbar('Error', 'Please enter email');
+    if (email.isEmpty) {
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Lỗi!',
+          message: 'Vui lòng nhập đầy đủ thông tin',
+          contentType: ContentType.failure,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       otpForgotPasswordController.otpForgotPassword(email, context);
     }
@@ -37,10 +48,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: const Icon(Icons.keyboard_arrow_left, color: Colors.black),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                size: 30,
+                color: Color(0xFF4C53A5),
+              ),
             ),
-            const Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
           ],
         ),
       ),
@@ -55,7 +68,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         children: <Widget>[
           Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                color: Color(0xFF4C53A5)),
           ),
           const SizedBox(
             height: 10,
@@ -72,12 +88,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   Widget _submitButton() {
-    return Obx(() =>
-        Container(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+    return Obx(() => Container(
+          width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.symmetric(vertical: 15),
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -92,53 +104,21 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                  colors: [Color(0xff444A94), Color(0xFF4C53A5)])),
           child: otpForgotPasswordController.isLoading.value
               ? const CircularProgressIndicator(
-            color: Colors.white,
-          )
+                  color: Colors.white,
+                )
               : TextButton(
-            onPressed: () {
-              _signUp(context);
-            },
-            child: const Text(
-              'Next',
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            ),
-          ),
+                  onPressed: () {
+                    _signUp(context);
+                  },
+                  child: const Text(
+                    'Tiếp Tục',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ),
         ));
-  }
-
-  Widget _loginAccountLabel() {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, '/sign-in');
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 20),
-        padding: const EdgeInsets.all(15),
-        alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'Already have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              'Login',
-              style: TextStyle(
-                  color: Color(0xfff79c4f),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   Widget _logo() {
@@ -156,11 +136,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return const Align(
       alignment: Alignment.center,
       child: Text(
-        'Forgot Password',
+        'Quên Mật Khẩu',
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
-          color: Color(0xFFFFAA2C),
+          color: Color(0xFF4C53A5),
         ),
       ),
     );
@@ -176,24 +156,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         height: height,
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: -MediaQuery
-                  .of(context)
-                  .size
-                  .height * .15,
-              right: -MediaQuery
-                  .of(context)
-                  .size
-                  .width * .4,
+              top: -MediaQuery.of(context).size.height * .15,
+              right: -MediaQuery.of(context).size.width * .4,
               child: const BezierContainer(),
             ),
             Container(
@@ -215,7 +186,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     _submitButton(),
                     const SizedBox(height: 20),
-                    _loginAccountLabel(),
                   ],
                 ),
               ),

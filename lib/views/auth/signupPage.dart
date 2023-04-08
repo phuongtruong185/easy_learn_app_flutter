@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_learn_app/controllers/signupController.dart';
 import 'package:easy_learn_app/widget/bezierContainer.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,18 @@ class _SignUpPageState extends State<SignUpPage> {
     String email = _emailController.text.trim();
     String phone = _phoneController.text.trim();
     if (email.isEmpty || phone.isEmpty) {
-      Get.snackbar('Error', 'Please enter email and phone number');
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Lỗi!',
+          message:
+          'Vui lòng nhập đầy đủ thông tin đăng ký',
+          contentType: ContentType.failure,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       signupController.signUp(email, phone, context);
     }
@@ -38,10 +50,12 @@ class _SignUpPageState extends State<SignUpPage> {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: const Icon(Icons.keyboard_arrow_left, color: Colors.black),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                size: 30,
+                color: Color(0xFF4C53A5),
+              ),
             ),
-            const Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
           ],
         ),
       ),
@@ -56,7 +70,7 @@ class _SignUpPageState extends State<SignUpPage> {
         children: <Widget>[
           Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xff444A94)),
           ),
           const SizedBox(
             height: 10,
@@ -93,7 +107,7 @@ class _SignUpPageState extends State<SignUpPage> {
               gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                  colors: [Color(0xff444A94),Color(0xFF4C53A5)])),
           child: signupController.isLoading.value
               ? const CircularProgressIndicator(
             color: Colors.white,
@@ -103,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
               _signUp(context);
             },
             child: const Text(
-              'Next',
+              'Tiếp Tục',
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
@@ -123,17 +137,17 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             Text(
-              'Already have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              'Đã có tài khoản?',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               width: 10,
             ),
             Text(
-              'Login',
+              'Đăng nhập',
               style: TextStyle(
-                  color: Color(0xfff79c4f),
-                  fontSize: 13,
+                  color: Color(0xFF4C53A5),
+                  fontSize: 14,
                   fontWeight: FontWeight.w600),
             ),
           ],
@@ -157,11 +171,11 @@ class _SignUpPageState extends State<SignUpPage> {
     return const Align(
       alignment: Alignment.center,
       child: Text(
-        'Register',
+        'Đăng Ký',
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
-          color: Color(0xFFFFAA2C),
+          color: Color(0xFF4C53A5),
         ),
       ),
     );
@@ -171,7 +185,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Column(
       children: <Widget>[
         _entryField("Email", controller: _emailController),
-        _entryField("Phone", controller: _phoneController),
+        _entryField("Số điện thoại", controller: _phoneController),
       ],
     );
   }

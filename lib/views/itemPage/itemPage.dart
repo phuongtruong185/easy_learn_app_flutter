@@ -55,7 +55,7 @@ class ItemPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               RatingBar.builder(
-                                initialRating: 4,
+                                initialRating: course['rating']['average'],
                                 minRating: 1,
                                 direction: Axis.horizontal,
                                 itemCount: 5,
@@ -64,8 +64,9 @@ class ItemPage extends StatelessWidget {
                                     const EdgeInsets.symmetric(horizontal: 4.0),
                                 itemBuilder: (context, _) => const Icon(
                                   Icons.favorite,
-                                  color: Color(0xFF4C53A5),
+                                  color: Colors.yellow,
                                 ),
+                                ignoreGestures: true,
                                 onRatingUpdate: (rating) {
                                   print(rating);
                                 },
@@ -83,48 +84,14 @@ class ItemPage extends StatelessWidget {
                                 fontSize: 17,
                               ),
                             )),
-                        // Padding(
-                        //     padding: EdgeInsets.symmetric(vertical: 10),
-                        //     child: Row(
-                        //       children: [
-                        //         Text(
-                        //           'Size:',
-                        //           style: TextStyle(
-                        //               color: Color(0xFF4C53A5),
-                        //               fontSize: 18,
-                        //               fontWeight: FontWeight.bold),
-                        //         ),
-                        //         SizedBox(width: 10),
-                        //         Row(children: [
-                        //           Container(
-                        //             height: 30,
-                        //             width: 30,
-                        //             alignment: Alignment.center,
-                        //             margin: EdgeInsets.symmetric(horizontal: 5),
-                        //             decoration: BoxDecoration(
-                        //               color: Colors.white,
-                        //               borderRadius: BorderRadius.circular(30),
-                        //               boxShadow: [
-                        //                 BoxShadow(
-                        //                   color: Colors.grey.withOpacity(0.5),
-                        //                   spreadRadius: 3,
-                        //                   blurRadius: 10,
-                        //                   offset: const Offset(0,
-                        //                       3), // changes position of shadow
-                        //                 ),
-                        //               ],
-                        //             ),
-                        //           )
-                        //         ],)
-                        //       ],
-                        //     ))
+
                       ],
                     )),
               ),
             )
           ],
         ),
-      bottomNavigationBar: ItemBottomNavBar(),
+      bottomNavigationBar: ItemBottomNavBar(course: course),
     );
   }
 }

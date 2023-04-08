@@ -25,7 +25,7 @@ class CartPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const CartItemSamples(),
+                  CartItemSamples(),
                   Container(
                     margin: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 15),

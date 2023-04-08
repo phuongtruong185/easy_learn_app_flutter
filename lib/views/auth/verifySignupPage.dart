@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_learn_app/controllers/verifySignupController.dart';
 import 'package:easy_learn_app/widget/bezierContainer.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class VerifySignupPage extends StatefulWidget {
 
 class _VerifySignupPage extends State<VerifySignupPage> {
   final VerifySignupController verifySignupController =
-  Get.put(VerifySignupController());
+      Get.put(VerifySignupController());
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -35,16 +36,20 @@ class _VerifySignupPage extends State<VerifySignupPage> {
         last_name.isEmpty ||
         password.isEmpty ||
         otp.isEmpty) {
-      Get.snackbar('Error', 'Please enter all fields');
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Lỗi!',
+          message: 'Vui lòng nhập đầy đủ thông tin đăng nhập',
+          contentType: ContentType.failure,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       verifySignupController.verifySignup(
-          first_name,
-          last_name,
-          password,
-          otp,
-          email!,
-          phone!,
-          context);
+          first_name, last_name, password, otp, email!, phone!, context);
     }
   }
 
@@ -59,10 +64,12 @@ class _VerifySignupPage extends State<VerifySignupPage> {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: const Icon(Icons.keyboard_arrow_left, color: Colors.black),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                size: 30,
+                color: Color(0xFF4C53A5),
+              ),
             ),
-            const Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
           ],
         ),
       ),
@@ -78,7 +85,10 @@ class _VerifySignupPage extends State<VerifySignupPage> {
         children: <Widget>[
           Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                color: Color(0xFF4C53A5)),
           ),
           const SizedBox(
             height: 10,
@@ -96,12 +106,8 @@ class _VerifySignupPage extends State<VerifySignupPage> {
   }
 
   Widget _submitButton() {
-    return Obx(() =>
-        Container(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+    return Obx(() => Container(
+          width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.symmetric(vertical: 15),
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -116,20 +122,20 @@ class _VerifySignupPage extends State<VerifySignupPage> {
               gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                  colors: [Color(0xff444A94), Color(0xFF4C53A5)])),
           child: verifySignupController.isLoading.value
               ? const CircularProgressIndicator(
-            color: Colors.white,
-          )
+                  color: Colors.white,
+                )
               : TextButton(
-            onPressed: () {
-              _verifySignUp(context);
-            },
-            child: const Text(
-              'Sign Up',
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            ),
-          ),
+                  onPressed: () {
+                    _verifySignUp(context);
+                  },
+                  child: const Text(
+                    'Đăng Ký',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ),
         ));
   }
 
@@ -146,17 +152,17 @@ class _VerifySignupPage extends State<VerifySignupPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             Text(
-              'Already have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              'Đã có tài khoản?',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               width: 10,
             ),
             Text(
-              'Login',
+              'Đăng Nhập',
               style: TextStyle(
-                  color: Color(0xfff79c4f),
-                  fontSize: 13,
+                  color: Color(0xFF4C53A5),
+                  fontSize: 14,
                   fontWeight: FontWeight.w600),
             ),
           ],
@@ -180,11 +186,11 @@ class _VerifySignupPage extends State<VerifySignupPage> {
     return const Align(
       alignment: Alignment.center,
       child: Text(
-        'Register',
+        'Đăng Ký',
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
-          color: Color(0xFFFFAA2C),
+          color: Color(0xFF4C53A5),
         ),
       ),
     );
@@ -193,10 +199,10 @@ class _VerifySignupPage extends State<VerifySignupPage> {
   Widget _fieldWidget() {
     return Column(
       children: <Widget>[
-        _entryField("First name", controller: _firstNameController),
-        _entryField("Last name", controller: _lastNameController),
-        _entryField(
-            "Password", isPassword: true, controller: _passwordController),
+        _entryField("Tên", controller: _firstNameController),
+        _entryField("Họ", controller: _lastNameController),
+        _entryField("Mật khẩu",
+            isPassword: true, controller: _passwordController),
         _entryField("OTP", controller: _otpController),
       ],
     );
@@ -204,24 +210,15 @@ class _VerifySignupPage extends State<VerifySignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         height: height,
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: -MediaQuery
-                  .of(context)
-                  .size
-                  .height * .15,
-              right: -MediaQuery
-                  .of(context)
-                  .size
-                  .width * .4,
+              top: -MediaQuery.of(context).size.height * .15,
+              right: -MediaQuery.of(context).size.width * .4,
               child: const BezierContainer(),
             ),
             Container(

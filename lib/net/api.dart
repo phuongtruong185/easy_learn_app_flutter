@@ -24,8 +24,8 @@ class API {
           data: body, options: Options(headers: headers));
       return json.decode(response.toString());
     } catch (e) {
-      print('Error during POST request: $e');
-      rethrow;
+      print(e);
+      return e;
     }
   }
 

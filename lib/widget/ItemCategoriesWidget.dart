@@ -7,29 +7,30 @@ import '../controllers/toggleWishListController.dart';
 import '../views/itemPage/itemPage.dart';
 import '../controllers/addToCartController.dart';
 
-class ItemsWidget extends StatelessWidget {
-  const ItemsWidget({Key? key}) : super(key: key);
+class ItemCategoriesWidget extends StatelessWidget {
+  final dynamic category;
+  const ItemCategoriesWidget({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: API.get('/course'),
+        future: API.get('/course/category/${category['_id']}'),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           NumberFormat formatter = NumberFormat('#,##0', 'en_US');
           if (snapshot.hasData) {
-            List<dynamic> courses = snapshot?.data['data'] as List<dynamic>;
+            List<dynamic> categories = snapshot?.data['data'] as List<dynamic>;
             return GridView.count(
               childAspectRatio: 0.68,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               shrinkWrap: true,
               children: [
-                for (var course in courses)
+                for (var course in categories)
                   Container(
                     padding:
-                        const EdgeInsets.only(left: 15, right: 15, top: 10),
+                    const EdgeInsets.only(left: 15, right: 15, top: 10),
                     margin:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
@@ -47,10 +48,10 @@ class ItemsWidget extends StatelessWidget {
                               ),
                               child: (course['discount'] > 0)
                                   ? Text('-${course['discount'].toString()}%',
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold))
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold))
                                   : null,
                             ),
                             GestureDetector(
@@ -109,7 +110,7 @@ class ItemsWidget extends StatelessWidget {
                             itemCount: 5,
                             itemSize: 20,
                             itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            const EdgeInsets.symmetric(horizontal: 4.0),
                             itemBuilder: (context, _) => const Icon(
                               Icons.favorite,
                               color: Colors.yellow,

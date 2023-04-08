@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:easy_learn_app/views/searchPage/searchPage.dart';
 import 'package:flutter/material.dart';
 
 import '../../widget/CategoriesWidget.dart';
@@ -6,7 +7,8 @@ import '../../widget/HomeAppBar.dart';
 import '../../widget/ItemsWidget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class HomePage extends StatelessWidget {
                           height: 50,
                           width: 300,
                           child: TextFormField(
+                            controller: searchController,
                             decoration: const InputDecoration(
                               hintText: 'Search here...',
                               hintStyle: TextStyle(
@@ -50,10 +53,21 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        const Icon(
-                          Icons.camera_alt,
-                          size: 27,
-                          color: Color(0xFF4C53A5),
+                        // Search Icon and click to search
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchPage(
+                                      course: searchController.text)),
+                            );
+                          },
+                          child: const Icon(
+                            Icons.search,
+                            color: Color(0xFF4C53A5),
+                            size: 30,
+                          ),
                         ),
                       ],
                     ),
@@ -100,7 +114,7 @@ class HomePage extends StatelessWidget {
         bottomNavigationBar: CurvedNavigationBar(
           onTap: (index) {
             if (index == 1) {
-              Navigator.pushNamed(context, '/cartPage');
+              Navigator.pushNamed(context, '/wishList');
             } else if (index == 2) {
               Navigator.pushNamed(context, '/profile');
             } else {
@@ -117,7 +131,7 @@ class HomePage extends StatelessWidget {
               color: Colors.white,
             ),
             Icon(
-              Icons.shopping_cart,
+              Icons.favorite,
               size: 30,
               color: Colors.white,
             ),

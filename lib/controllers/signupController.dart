@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_learn_app/models/signup_model.dart';
 import 'package:easy_learn_app/net/api.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,17 @@ class SignupController extends GetxController {
     if (response['message'] == 'Send OTP thành công') {
       prefs.setString('email', email);
       prefs.setString('phone', phone);
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Success!',
+          message: 'Gửi mã OTP thành công. Vui lòng kiểm tra email và điền mã OTP',
+          contentType: ContentType.success,
+          inMaterialBanner: true,
+        ),
+      );
       Navigator.pushNamed(context, '/verify-sign-up');
     } else {
       print('Error during signup');

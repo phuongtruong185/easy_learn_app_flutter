@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_learn_app/net/api.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ class VerifyForgotPasswordController extends GetxController {
   Future<void> verifyForgotPassword(String email, String otp, String password, context) async {
     var formData = VerifyForgotPassword(email, otp, password);
     isLoading(true);
-    print(formData.toJson());
     var response = await API.post('/auth/verifyOtpForgotPassword',
         body: formData.toJson(),
         headers: {
@@ -18,8 +18,19 @@ class VerifyForgotPasswordController extends GetxController {
           'Accept': 'application/json'
         });
     isLoading(false);
-    print(response);
     if (response['message'] == 'Đặt lại mật khẩu thành công') {
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Success!',
+          message: 'Đặt lại mật khẩu thành công',
+          contentType: ContentType.success,
+          inMaterialBanner: true,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Navigator.pushNamed(context, '/sign-in');
     } else {
       print('Error during verify forgot password');

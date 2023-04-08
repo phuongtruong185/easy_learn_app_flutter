@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_learn_app/net/api.dart';
 import 'package:get/get.dart';
 import '../models/verifySignup_model.dart';
@@ -19,6 +20,17 @@ class VerifySignupController extends GetxController {
         });
     isLoading(false);
     if(response['message'] == 'Đăng kí thành công!'){
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Success!',
+          message: 'Đăng ký thành công',
+          contentType: ContentType.success,
+          inMaterialBanner: true,
+        ),
+      );
       Navigator.pushNamed(context, '/sign-in');
     }
 

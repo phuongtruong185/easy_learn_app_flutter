@@ -7,6 +7,8 @@ import 'package:easy_learn_app/views/homePage/homePage.dart';
 import 'package:easy_learn_app/views/cartPage/cartPage.dart';
 import 'package:easy_learn_app/views/itemPage/itemPage.dart';
 import 'package:easy_learn_app/views/profilePage/profilePage.dart';
+import 'package:easy_learn_app/views/searchPage/searchPage.dart';
+import 'package:easy_learn_app/views/wishList/wishList.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data == true) {
-              return const HomePage();
+              return HomePage();
             } else {
               return const LoginPage();
             }
@@ -59,7 +61,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
           case '/home':
-            return MaterialPageRoute(builder: (context) => const HomePage());
+            return MaterialPageRoute(builder: (context) => HomePage());
             break;
           case '/sign-in':
             return MaterialPageRoute(builder: (context) => LoginPage());
@@ -83,12 +85,18 @@ class MyApp extends StatelessWidget {
             break;
           case '/itemPage':
             return MaterialPageRoute(
-                builder: (context) => ItemPage(
+                builder: (context) => const ItemPage(
                       course: null,
                     ));
             break;
           case '/profile':
             return MaterialPageRoute(builder: (context) => ProfilePage());
+            break;
+          case '/wishList':
+            return MaterialPageRoute(builder: (context) => WishListPage());
+            break;
+            case '/search':
+            return MaterialPageRoute(builder: (context) => SearchPage(course: null));
             break;
           default:
             return MaterialPageRoute(builder: (context) => HomePage());

@@ -1,11 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+
+import '../controllers/addToCartController.dart';
 
 class ItemBottomNavBar extends StatelessWidget {
-  const ItemBottomNavBar({Key? key}) : super(key: key);
+  final dynamic course;
+
+  const ItemBottomNavBar({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
+    NumberFormat formatter = NumberFormat('#,##0', 'en_US');
     return BottomAppBar(
       child: Container(
         height: 70,
@@ -25,15 +32,34 @@ class ItemBottomNavBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '\$120',
-              style: TextStyle(
-                  color: Color(0xFF4C53A5),
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                Text(
+                    '${course['price_discount'] > 0 ? formatter.format(course['price_discount']) : formatter.format(course['price'])} VND',
+                    style: TextStyle(
+                        color: course['price_discount'] > 0
+                            ? Colors.red
+                            : const Color(0xFF4C53A5),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
+                const SizedBox(width: 10),
+                if (course['price_discount'] > 0)
+                  Text(
+                    formatter.format(course['price']),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+              ],
             ),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Get.put(AddToCartController()
+                    .addToCart(course, context));
+              },
               icon: const Icon(
                 CupertinoIcons.cart_badge_plus,
               ),

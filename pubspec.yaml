@@ -42,7 +42,9 @@ dependencies:
   badges: ^3.0.3
   clippy_flutter: ^2.0.0-nullsafety.1
   flutter_rating_bar: ^4.0.1
-  intl: ^0.18.0
+  awesome_snackbar_content: ^0.1.2
+  intl: ^0.17.0
+  get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:

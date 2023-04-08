@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_learn_app/widget/bezierContainer.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/loginController.dart';
@@ -19,31 +20,21 @@ class _LoginPageState extends State<LoginPage> {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
     if (email.isEmpty || password.isEmpty) {
-      Get.snackbar('Error', 'Please fill all fields');
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Lỗi!',
+          message:
+          'Vui lòng nhập đầy đủ thông tin đăng nhập',
+          contentType: ContentType.failure,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       loginController.login(email, password, context);
     }
-  }
-
-  Widget _backButton() {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, '/');
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: const Icon(Icons.keyboard_arrow_left, color: Colors.black),
-            ),
-            const Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
-          ],
-        ),
-      ),
-    );
   }
 
   Widget _entryField(String title,
@@ -55,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF4C53A5)),
           ),
           const SizedBox(
             height: 10,
@@ -89,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
               gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                  colors: [Color(0xff444A94), Color(0xFF4C53A5)])),
           child: loginController.isLoading.value
               ? const CircularProgressIndicator(
                   color: Colors.white,
@@ -97,9 +88,10 @@ class _LoginPageState extends State<LoginPage> {
               : TextButton(
                   onPressed: () {
                     _login(context);
+
                   },
                   child: const Text(
-                    'Login',
+                    'Đăng Nhập',
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),
@@ -119,18 +111,18 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             Text(
-              'Don\'t have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              'Chưa có tài khoản?',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               width: 10,
             ),
             Text(
-              'Register',
+              'Đăng Ký',
               style: TextStyle(
-                  color: Color(0xfff79c4f),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
+                  color: Color(0xFF4C53A5),
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -151,11 +143,11 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             Text(
-              'Forgot Password ?',
+              'Quên mật khẩu?',
               style: TextStyle(
-                  color: Color(0xfff79c4f),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
+                  color: Color(0xFF4C53A5),
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -178,11 +170,11 @@ class _LoginPageState extends State<LoginPage> {
     return const Align(
       alignment: Alignment.center,
       child: Text(
-        'Login',
+        'Đăng Nhập',
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
-          color: Color(0xFFFFAA2C),
+          color: Color(0xFF4C53A5),
         ),
       ),
     );
@@ -192,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: <Widget>[
         _entryField("Email", controller: _emailController),
-        _entryField("Password",
+        _entryField("Mật khẩu",
             isPassword: true, controller: _passwordController),
       ],
     );
@@ -231,7 +223,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          Positioned(top: 40, left: 0, child: _backButton()),
         ],
       ),
     ));

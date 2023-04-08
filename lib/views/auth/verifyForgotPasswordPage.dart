@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_learn_app/widget/bezierContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,12 +25,21 @@ class _VerifyForgotPasswordPageState extends State<VerifyForgotPasswordPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? email = prefs.getString('emailForgotPass')!;
-    print(email);
     String otp = _otpController.text.trim();
     String password = _passwordController.text.trim();
 
     if (email.isEmpty || otp.isEmpty || password.isEmpty) {
-      Get.snackbar('Error', 'Please enter all fields');
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Lỗi!',
+          message: 'Vui lòng nhập đầy đủ thông tin',
+          contentType: ContentType.failure,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       verifyForgotPasswordController.verifyForgotPassword(
           email, otp, password, context);
@@ -47,10 +57,12 @@ class _VerifyForgotPasswordPageState extends State<VerifyForgotPasswordPage> {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: const Icon(Icons.keyboard_arrow_left, color: Colors.black),
+              child: const Icon(
+                Icons.arrow_back_ios,
+                size: 30,
+                color: Color(0xFF4C53A5),
+              ),
             ),
-            const Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
           ],
         ),
       ),
@@ -98,7 +110,7 @@ class _VerifyForgotPasswordPageState extends State<VerifyForgotPasswordPage> {
               gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                  colors: [Color(0xff444A94), Color(0xFF4C53A5)])),
           child: verifyForgotPasswordController.isLoading.value
               ? const CircularProgressIndicator(
                   color: Colors.white,
@@ -108,43 +120,11 @@ class _VerifyForgotPasswordPageState extends State<VerifyForgotPasswordPage> {
                     _verifyForgotPassWord(context);
                   },
                   child: const Text(
-                    'Change Password',
+                    'Đổi Mật Khẩu',
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),
         ));
-  }
-
-  Widget _loginAccountLabel() {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, '/sign-in');
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 20),
-        padding: const EdgeInsets.all(15),
-        alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'Already have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              'Login',
-              style: TextStyle(
-                  color: Color(0xfff79c4f),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   Widget _logo() {
@@ -162,11 +142,11 @@ class _VerifyForgotPasswordPageState extends State<VerifyForgotPasswordPage> {
     return const Align(
       alignment: Alignment.center,
       child: Text(
-        'Forgot Password',
+        'Quên Mật Khẩu',
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
-          color: Color(0xFFFFAA2C),
+          color: Color(0xFF4C53A5),
         ),
       ),
     );
@@ -176,7 +156,7 @@ class _VerifyForgotPasswordPageState extends State<VerifyForgotPasswordPage> {
     return Column(
       children: <Widget>[
         _entryField("OTP", controller: _otpController),
-        _entryField("New Password", controller: _passwordController),
+        _entryField("Mật khẩu mới", controller: _passwordController),
       ],
     );
   }
@@ -213,7 +193,6 @@ class _VerifyForgotPasswordPageState extends State<VerifyForgotPasswordPage> {
                     ),
                     _submitButton(),
                     const SizedBox(height: 20),
-                    _loginAccountLabel(),
                   ],
                 ),
               ),

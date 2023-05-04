@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import '../controllers/cartController.dart';
+import '../controllers/checkoutController.dart';
 import '../net/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
 class CartBottomNavBar extends StatelessWidget {
-  final cartController = Get.put(CartController()); // Khởi tạo controller
+  final cartController = Get.put(CartController());
+  final checkoutController = Get.put(CheckoutController());
+  final bool checkout;
+
+  CartBottomNavBar({super.key, required this.checkout});
 
   @override
   Widget build(BuildContext context) {
@@ -87,23 +92,33 @@ class CartBottomNavBar extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Container(
-                          height: 50,
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF4C53A5),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Text(
-                            "Thanh Toán",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                        GestureDetector(
+                          onTap: () {
+                            if (checkout) {
+                              checkoutController.checkout(cartController.cartId.value, context); // Thực hiện hàm checkout với đối số tương ứng
+                            } else {
+                              Navigator.pushNamed(context, '/checkout');
+                            }
+                          },
+                          child: Container(
+                            height: 50,
+                            // click to /checkout
+                            width: double.infinity,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF4C53A5),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Text(
+                              "Thanh Toán",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     );
                   })),

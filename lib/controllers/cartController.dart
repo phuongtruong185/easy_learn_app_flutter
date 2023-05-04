@@ -7,6 +7,7 @@ class CartController extends GetxController {
   RxInt total = 0.obs;
   RxInt priceDiscount = 0.obs;
   RxInt quantityOrdered = 0.obs;
+  RxString cartId = ''.obs;
 
   Future<void> fetchData() async {
     try {
@@ -22,11 +23,11 @@ class CartController extends GetxController {
       if (response['success'] == true) {
         List<dynamic> productsData =
             jsonMapToList(response['listCourse']['courseId']);
-
         products.assignAll(productsData);
         total.value = response['listCourse']['price'];
         priceDiscount.value = response['listCourse']['price_discount'];
         quantityOrdered.value = response['listCourse']['quantityOrdered'];
+        cartId.value = response['listCourse']['_id'];
       } else if (response.hasError) {
         // Xử lý lỗi nếu có
         // ...

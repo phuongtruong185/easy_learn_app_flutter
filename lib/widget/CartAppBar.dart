@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CartAppBar extends StatelessWidget {
-  const CartAppBar({Key? key}) : super(key: key);
+  final String title; // Make title parameter final
+
+  const CartAppBar({Key? key, required this.title}) : super(key: key); // Make title parameter required
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +22,11 @@ class CartAppBar extends StatelessWidget {
               color: Color(0xFF4C53A5),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
             child: Text(
-              'Giỏ hàng',
-              style: TextStyle(
+              title,
+              style: const TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF4C53A5),

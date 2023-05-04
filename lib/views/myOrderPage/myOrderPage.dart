@@ -1,17 +1,17 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import '../../widget/ItemsWishListWidget.dart';
-import '../../widget/WishListAppBar.dart';
+import '../../widget/ItemMyOrderWidget.dart';
+import '../../widget/MyOrderAppBar.dart';
 
-class WishListPage extends StatelessWidget {
-  const WishListPage({Key? key}) : super(key: key);
+class MyOrderPage extends StatelessWidget {
+  const MyOrderPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
           children: [
-            const WishListAppBar(),
+            const MyOrderAppBar(),
             Container(
               padding: const EdgeInsets.only(top: 15),
               height: MediaQuery.of(context).size.height,
@@ -21,9 +21,9 @@ class WishListPage extends StatelessWidget {
                       topLeft: Radius.circular(35),
                       topRight: Radius.circular(35))),
               child: Column(
-                children: [
+                children: const [
                   // Items Widget
-                  ItemWishListWidget(),
+                  ItemMyOrderWidget(),
                 ],
               ),
             ),
@@ -67,7 +67,7 @@ class WishListPage extends StatelessWidget {
             ),
           ],
           animationDuration: const Duration(milliseconds: 200),
-          index: 2,
+          index: 1,
         ));
   }
 }

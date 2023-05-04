@@ -12,7 +12,7 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          CartAppBar(),
+          const CartAppBar(title: "Giỏ hàng"),
           Container(
               height: 700,
               padding: const EdgeInsets.only(top: 15),
@@ -59,7 +59,7 @@ class CartPage extends StatelessWidget {
               )),
         ],
       ),
-      bottomNavigationBar: CartBottomNavBar(),
+      bottomNavigationBar: CartBottomNavBar(checkout: false),
     );
   }
 }

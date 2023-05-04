@@ -15,7 +15,7 @@ class DeleteItemCartController extends GetxController {
     access_token = access_token.replaceAll('"', '');
     var formData = AddToCart(course['_id']);
     isLoading(true);
-    var response = await API.delete('/cart', body: formData.toJson(), headers: {
+    var response = await API.delete('/cart/${course['_id']}', body: formData.toJson(), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer $access_token',

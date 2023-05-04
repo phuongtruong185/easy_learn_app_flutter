@@ -3,8 +3,7 @@ import 'dart:convert';
 
 class API {
   static var dio = Dio();
-  static var baseUrl =
-      'https://backendeasylearnfinal-production.up.railway.app';
+  static var baseUrl = 'https://easy-learn-final-production-v1.up.railway.app';
 
   static Future get(String url, {Map<String, dynamic>? headers}) async {
     try {
@@ -21,6 +20,18 @@ class API {
       {Map<String, dynamic>? body, Map<String, dynamic>? headers}) async {
     try {
       var response = await dio.post(baseUrl + url,
+          data: body, options: Options(headers: headers));
+      return json.decode(response.toString());
+    } catch (e) {
+      print(e);
+      return e;
+    }
+  }
+
+  static Future patch(String url,
+      {Map<String, dynamic>? body, Map<String, dynamic>? headers}) async {
+    try {
+      var response = await dio.patch(baseUrl + url,
           data: body, options: Options(headers: headers));
       return json.decode(response.toString());
     } catch (e) {
@@ -47,16 +58,6 @@ class API {
       return json.decode(response.toString());
     } catch (e) {
       print('Error during DELETE request: $e');
-      rethrow;
-    }
-  }
-
-  static Future patch(String url, {required Map<String, dynamic> body}) async {
-    try {
-      var response = await dio.patch(baseUrl + url, data: body);
-      return json.decode(response.toString());
-    } catch (e) {
-      print('Error during PATCH request: $e');
       rethrow;
     }
   }

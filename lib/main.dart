@@ -1,14 +1,20 @@
+import 'package:easy_learn_app/views/aboutUs/aboutUs.dart';
 import 'package:easy_learn_app/views/auth/forgotPasswordPage.dart';
 import 'package:easy_learn_app/views/auth/loginPage.dart';
 import 'package:easy_learn_app/views/auth/signupPage.dart';
 import 'package:easy_learn_app/views/auth/verifyForgotPasswordPage.dart';
 import 'package:easy_learn_app/views/auth/verifySignupPage.dart';
+import 'package:easy_learn_app/views/changePass/changePassPage.dart';
+import 'package:easy_learn_app/views/contactUs/contactUs.dart';
 import 'package:easy_learn_app/views/homePage/homePage.dart';
 import 'package:easy_learn_app/views/cartPage/cartPage.dart';
 import 'package:easy_learn_app/views/itemPage/itemPage.dart';
+import 'package:easy_learn_app/views/myOrderPage/myOrderPage.dart';
+import 'package:easy_learn_app/views/orderHistory/orderHistoryPage.dart';
 import 'package:easy_learn_app/views/profilePage/profilePage.dart';
 import 'package:easy_learn_app/views/searchPage/searchPage.dart';
 import 'package:easy_learn_app/views/wishList/wishList.dart';
+import 'package:easy_learn_app/views/cartPage/checkoutPage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -95,8 +101,27 @@ class MyApp extends StatelessWidget {
           case '/wishList':
             return MaterialPageRoute(builder: (context) => WishListPage());
             break;
-            case '/search':
-            return MaterialPageRoute(builder: (context) => SearchPage(course: null));
+          case '/search':
+            return MaterialPageRoute(
+                builder: (context) => SearchPage(course: null));
+            break;
+          case '/checkout':
+            return MaterialPageRoute(builder: (context) => CheckoutPage());
+            break;
+          case '/myOrder':
+            return MaterialPageRoute(builder: (context) => MyOrderPage());
+            break;
+            case '/orderHistory':
+            return MaterialPageRoute(builder: (context) => OrderHistoryPage());
+            break;
+            case '/contactUs':
+            return MaterialPageRoute(builder: (context) => ContactUsPage());
+            break;
+            case '/aboutUs':
+            return MaterialPageRoute(builder: (context) => AboutUsPage());
+            break;
+            case '/changePass':
+            return MaterialPageRoute(builder: (context) => ChangePassPage());
             break;
           default:
             return MaterialPageRoute(builder: (context) => HomePage());

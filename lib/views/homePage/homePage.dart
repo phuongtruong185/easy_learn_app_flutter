@@ -114,8 +114,10 @@ class HomePage extends StatelessWidget {
         bottomNavigationBar: CurvedNavigationBar(
           onTap: (index) {
             if (index == 1) {
-              Navigator.pushNamed(context, '/wishList');
+              Navigator.pushNamed(context, '/myOrder');
             } else if (index == 2) {
+              Navigator.pushNamed(context, '/wishList');
+            } else if (index == 3) {
               Navigator.pushNamed(context, '/profile');
             } else {
               Navigator.pushNamed(context, '/home');
@@ -127,6 +129,11 @@ class HomePage extends StatelessWidget {
           items: const [
             Icon(
               Icons.home,
+              size: 30,
+              color: Colors.white,
+            ),
+            Icon(
+              Icons.book_outlined,
               size: 30,
               color: Colors.white,
             ),

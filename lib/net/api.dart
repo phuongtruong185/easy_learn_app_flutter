@@ -10,8 +10,10 @@ class API {
       var response =
           await dio.get(baseUrl + url, options: Options(headers: headers));
       return json.decode(response.toString());
-    } catch (e) {
-      print('Error during GET request: $e');
+    } on DioError catch (e) {
+      if (e.response?.statusCode != null && e.response!.statusCode != 200) {
+        return json.decode(e.response.toString());
+      }
       rethrow;
     }
   }
@@ -22,9 +24,11 @@ class API {
       var response = await dio.post(baseUrl + url,
           data: body, options: Options(headers: headers));
       return json.decode(response.toString());
-    } catch (e) {
-      print(e);
-      return e;
+    } on DioError catch (e) {
+      if (e.response?.statusCode != null && e.response!.statusCode != 200) {
+        return json.decode(e.response.toString());
+      }
+      rethrow;
     }
   }
 
@@ -34,9 +38,11 @@ class API {
       var response = await dio.patch(baseUrl + url,
           data: body, options: Options(headers: headers));
       return json.decode(response.toString());
-    } catch (e) {
-      print(e);
-      return e;
+    } on DioError catch (e) {
+      if (e.response?.statusCode != null && e.response!.statusCode != 200) {
+        return json.decode(e.response.toString());
+      }
+      rethrow;
     }
   }
 
@@ -44,8 +50,10 @@ class API {
     try {
       var response = await dio.put(baseUrl + url, data: body);
       return json.decode(response.toString());
-    } catch (e) {
-      print('Error during PUT request: $e');
+    } on DioError catch (e) {
+      if (e.response?.statusCode != null && e.response!.statusCode != 200) {
+        return json.decode(e.response.toString());
+      }
       rethrow;
     }
   }
@@ -56,8 +64,10 @@ class API {
       var response = await dio.delete(baseUrl + url,
           data: body, options: Options(headers: headers));
       return json.decode(response.toString());
-    } catch (e) {
-      print('Error during DELETE request: $e');
+    } on DioError catch (e) {
+      if (e.response?.statusCode != null && e.response!.statusCode != 200) {
+        return json.decode(e.response.toString());
+      }
       rethrow;
     }
   }

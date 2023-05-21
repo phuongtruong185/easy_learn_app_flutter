@@ -10,6 +10,7 @@ class OrderHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
+          scrollDirection: Axis.vertical,
           children: [
             AppBarCustome(name: 'Lịch sử đơn hàng'),
             Container(
@@ -20,11 +21,10 @@ class OrderHistoryPage extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(35),
                       topRight: Radius.circular(35))),
-              child: Column(
-                children: const [
-                  // Items Widget
-                  ItemOrderHistoryWidget(),
-                ],
+              child: const SingleChildScrollView(
+                child:
+                    // Items Widget
+                    ItemOrderHistoryWidget(),
               ),
             ),
           ],

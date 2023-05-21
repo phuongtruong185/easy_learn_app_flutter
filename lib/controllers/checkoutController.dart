@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:easy_learn_app/net/api.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/checkout_model.dart';
 
@@ -20,9 +23,10 @@ class CheckoutController extends GetxController {
       'Authorization': 'Bearer $access_token'
     });
     isLoading(false);
-    if(response['url'] != null) {
+    if (response['url'] != null) {
       String url = response['url'];
-      // Open the URL in browser
+      await launch(url);
+      await Navigator.pushNamed(context, '/');
     }
   }
 }

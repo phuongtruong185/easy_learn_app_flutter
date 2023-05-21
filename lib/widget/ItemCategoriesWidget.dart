@@ -9,6 +9,7 @@ import '../controllers/addToCartController.dart';
 
 class ItemCategoriesWidget extends StatelessWidget {
   final dynamic category;
+
   const ItemCategoriesWidget({super.key, required this.category});
 
   @override
@@ -28,9 +29,9 @@ class ItemCategoriesWidget extends StatelessWidget {
                 for (var course in categories)
                   Container(
                     padding:
-                    const EdgeInsets.only(left: 15, right: 15, top: 10),
+                        const EdgeInsets.only(left: 15, right: 15, top: 10),
                     margin:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
@@ -48,10 +49,10 @@ class ItemCategoriesWidget extends StatelessWidget {
                               ),
                               child: (course['discount'] > 0)
                                   ? Text('-${course['discount'].toString()}%',
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold))
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold))
                                   : null,
                             ),
                             GestureDetector(
@@ -90,27 +91,34 @@ class ItemCategoriesWidget extends StatelessWidget {
                         Container(
                             padding: const EdgeInsets.only(bottom: 8),
                             alignment: Alignment.centerLeft,
-                            child: Text(course['name'],
-                                style: const TextStyle(
-                                    color: Color(0xFF4C53A5),
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold))),
+                            child: Text(
+                              course['name'],
+                              style: const TextStyle(
+                                  color: Color(0xFF4C53A5),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
+                            )),
                         Container(
                           alignment: Alignment.centerLeft,
-                          child: Text(course['description'],
-                              style: const TextStyle(
-                                  color: Color(0xFF4C53A5), fontSize: 15)),
+                          constraints: BoxConstraints(maxHeight: 50),
+                          child: Text(
+                            course['description'],
+                            style: const TextStyle(
+                                color: Color(0xFF4C53A5), fontSize: 15),
+                            overflow: TextOverflow.clip,
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: RatingBar.builder(
-                            initialRating: course['rating']['average'],
+                            initialRating: course['rate'],
                             minRating: 1,
                             direction: Axis.horizontal,
                             itemCount: 5,
                             itemSize: 20,
                             itemPadding:
-                            const EdgeInsets.symmetric(horizontal: 4.0),
+                                const EdgeInsets.symmetric(horizontal: 4.0),
                             itemBuilder: (context, _) => const Icon(
                               Icons.favorite,
                               color: Colors.yellow,

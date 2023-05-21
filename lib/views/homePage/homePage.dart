@@ -105,7 +105,7 @@ class HomePage extends StatelessWidget {
                   ),
 
                   // Items Widget
-                  ItemsWidget(),
+                  const ItemsWidget(),
                 ],
               ),
             ),

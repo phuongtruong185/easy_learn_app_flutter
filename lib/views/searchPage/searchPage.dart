@@ -21,11 +21,9 @@ class SearchPage extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(35),
                     topRight: Radius.circular(35))),
-            child: Column(
-              children: [
-                // Items Widget
+            child: SingleChildScrollView(
+              child:
                 ItemSearchWidget(course: course),
-              ],
             ),
           ),
         ],

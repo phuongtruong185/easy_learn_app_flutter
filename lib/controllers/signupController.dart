@@ -37,7 +37,18 @@ class SignupController extends GetxController {
       );
       Navigator.pushNamed(context, '/verify-sign-up');
     } else {
-      print('Error during signup');
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Error!',
+          message: response['message'],
+          contentType: ContentType.failure,
+          inMaterialBanner: true,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 }

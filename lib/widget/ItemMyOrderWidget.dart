@@ -67,12 +67,17 @@ class ItemMyOrderWidget extends StatelessWidget {
                                   style: const TextStyle(
                                       color: Color(0xFF4C53A5),
                                       fontSize: 18,
-                                      fontWeight: FontWeight.bold))),
+                                      fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.ellipsis,
+                              )),
                           Container(
                             alignment: Alignment.centerLeft,
+                            constraints: const BoxConstraints(maxHeight: 50),
                             child: Text(course['description'],
                                 style: const TextStyle(
-                                    color: Color(0xFF4C53A5), fontSize: 15)),
+                                    color: Color(0xFF4C53A5), fontSize: 15),
+                              overflow: TextOverflow.clip,
+                            ),
                           ),
                         ],
                       ),

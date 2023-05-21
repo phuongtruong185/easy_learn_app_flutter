@@ -24,7 +24,6 @@ class ChangePassController extends GetxController {
           'Authorization': 'Bearer $access_token'
         });
     isLoading(false);
-    print(response);
     if (response['message'] == 'Cập nhật thành công!') {
       var snackBar = SnackBar(
         elevation: 0,
@@ -34,6 +33,19 @@ class ChangePassController extends GetxController {
           title: 'Success!',
           message: 'Đổi mật khẩu thành công',
           contentType: ContentType.success,
+          inMaterialBanner: true,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Error!',
+          message: response['message'],
+          contentType: ContentType.failure,
           inMaterialBanner: true,
         ),
       );

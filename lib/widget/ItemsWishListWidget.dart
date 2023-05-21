@@ -9,8 +9,7 @@ import '../controllers/addToCartController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ItemWishListWidget extends StatelessWidget {
-  final wishListController =
-      Get.put(WishListController());
+  final wishListController = Get.put(WishListController());
 
   @override
   Widget build(BuildContext context) {
@@ -97,17 +96,24 @@ class ItemWishListWidget extends StatelessWidget {
                                 Container(
                                     padding: const EdgeInsets.only(bottom: 8),
                                     alignment: Alignment.centerLeft,
-                                    child: Text(course['name'],
-                                        style: const TextStyle(
-                                            color: Color(0xFF4C53A5),
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold))),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(course['description'],
+                                    child: Text(
+                                      course['name'],
                                       style: const TextStyle(
                                           color: Color(0xFF4C53A5),
-                                          fontSize: 15)),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                      overflow: TextOverflow.ellipsis,
+                                    )),
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  constraints:
+                                      const BoxConstraints(maxHeight: 50),
+                                  child: Text(
+                                    course['description'],
+                                    style: const TextStyle(
+                                        color: Color(0xFF4C53A5), fontSize: 15),
+                                    overflow: TextOverflow.clip,
+                                  ),
                                 ),
                                 Padding(
                                   padding:
@@ -161,8 +167,7 @@ class ItemWishListWidget extends StatelessWidget {
                           )
                       ],
                     );
-                  }
-                  else {
+                  } else {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,

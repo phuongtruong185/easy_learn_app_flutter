@@ -35,7 +35,18 @@ class OTPForgotPasswordController extends GetxController {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Navigator.pushNamed(context, '/verify-forgot-password');
     } else {
-      print('Error during send otp forgot password');
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Error!',
+          message: response['message'],
+          contentType: ContentType.failure,
+          inMaterialBanner: true,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 }

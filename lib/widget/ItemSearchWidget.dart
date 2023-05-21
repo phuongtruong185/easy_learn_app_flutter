@@ -97,17 +97,23 @@ class ItemSearchWidget extends StatelessWidget {
                                   style: const TextStyle(
                                       color: Color(0xFF4C53A5),
                                       fontSize: 18,
-                                      fontWeight: FontWeight.bold))),
+                                      fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.ellipsis,
+                              )),
                           Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(course['description'],
-                                style: const TextStyle(
-                                    color: Color(0xFF4C53A5), fontSize: 15)),
+                            constraints: const BoxConstraints(maxHeight: 50),
+                            child: Text(
+                              course['description'],
+                              style: const TextStyle(
+                                  color: Color(0xFF4C53A5), fontSize: 15),
+                              overflow: TextOverflow.clip,
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: RatingBar.builder(
-                              initialRating: course['rating']['average'],
+                              initialRating: course['rate'],
                               minRating: 1,
                               direction: Axis.horizontal,
                               itemCount: 5,
@@ -115,7 +121,7 @@ class ItemSearchWidget extends StatelessWidget {
                               itemPadding:
                                   const EdgeInsets.symmetric(horizontal: 4.0),
                               itemBuilder: (context, _) => const Icon(
-                                Icons.favorite,
+                                Icons.star,
                                 color: Colors.yellow,
                               ),
                               ignoreGestures: true,

@@ -13,6 +13,7 @@ class ItemPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(course);
     return Scaffold(
         backgroundColor: const Color(0xffedecf2),
         body: ListView(
@@ -55,7 +56,7 @@ class ItemPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               RatingBar.builder(
-                                initialRating: course['rating']['average'],
+                                initialRating: course['rate'],
                                 minRating: 1,
                                 direction: Axis.horizontal,
                                 itemCount: 5,
@@ -63,7 +64,7 @@ class ItemPage extends StatelessWidget {
                                 itemPadding:
                                     const EdgeInsets.symmetric(horizontal: 4.0),
                                 itemBuilder: (context, _) => const Icon(
-                                  Icons.favorite,
+                                  Icons.star,
                                   color: Colors.yellow,
                                 ),
                                 ignoreGestures: true,

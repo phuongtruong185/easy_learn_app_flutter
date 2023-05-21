@@ -36,6 +36,19 @@ class AddToCartController extends GetxController {
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Get.find<CartController>().fetchData();
+    } else {
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Error!',
+          message: response['message'],
+          contentType: ContentType.failure,
+          inMaterialBanner: true,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
     isLoading(false);
   }

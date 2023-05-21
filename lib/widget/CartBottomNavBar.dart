@@ -95,7 +95,7 @@ class CartBottomNavBar extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             if (checkout) {
-                              checkoutController.checkout(cartController.cartId.value, context); // Thực hiện hàm checkout với đối số tương ứng
+                              checkoutController.checkout(cartController.cartId.value, context);
                             } else {
                               Navigator.pushNamed(context, '/checkout');
                             }

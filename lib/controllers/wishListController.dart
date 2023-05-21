@@ -22,7 +22,7 @@ class WishListController extends GetxController {
       });
 
       if (response['success'] == true) {
-        List<dynamic> data = jsonMapToList(response['data']['courseId']);
+        List<dynamic> data = jsonMapToList(response['data']);
         wishListItem.assignAll(data);
       }
 

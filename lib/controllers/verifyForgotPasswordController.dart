@@ -33,7 +33,18 @@ class VerifyForgotPasswordController extends GetxController {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Navigator.pushNamed(context, '/sign-in');
     } else {
-      print('Error during verify forgot password');
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Error!',
+          message: response['message'],
+          contentType: ContentType.failure,
+          inMaterialBanner: true,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 }

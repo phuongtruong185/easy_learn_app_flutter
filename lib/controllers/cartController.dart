@@ -28,9 +28,8 @@ class CartController extends GetxController {
         priceDiscount.value = response['listCourse']['price_discount'];
         quantityOrdered.value = response['listCourse']['quantityOrdered'];
         cartId.value = response['listCourse']['_id'];
-      } else if (response.hasError) {
-        // Xử lý lỗi nếu có
-        // ...
+      } else {
+
       }
     } catch (e) {
       // Xử lý lỗi nếu có

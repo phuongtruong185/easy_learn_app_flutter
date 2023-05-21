@@ -15,6 +15,10 @@ import 'package:easy_learn_app/views/profilePage/profilePage.dart';
 import 'package:easy_learn_app/views/searchPage/searchPage.dart';
 import 'package:easy_learn_app/views/wishList/wishList.dart';
 import 'package:easy_learn_app/views/cartPage/checkoutPage.dart';
+import 'package:easy_learn_app/widget/DeepLinkListener.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -53,7 +57,12 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data == true) {
-              return HomePage();
+              return Stack(
+                children: [
+                  HomePage(),
+                  const DeepLinkListener(),
+                ],
+              );
             } else {
               return const LoginPage();
             }

@@ -37,8 +37,18 @@ class DeleteItemCartController extends GetxController {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       // fetchData() from cartController
     } else {
-      Get.snackbar('Error', 'Xảy ra lỗi!. Vui lòng thử lại sau',
-          snackPosition: SnackPosition.BOTTOM);
+      var snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Error!',
+          message: response['message'],
+          contentType: ContentType.failure,
+          inMaterialBanner: true,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 }

@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class API {
   static var dio = Dio();
-  static var baseUrl = 'https://easy-learn-final-production-v1.up.railway.app';
+  static var baseUrl = 'https://backendeasylearnfinal-production-v1.up.railway.app';
 
   static Future get(String url, {Map<String, dynamic>? headers}) async {
     try {
